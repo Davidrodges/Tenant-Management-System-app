@@ -1,82 +1,75 @@
 package com.example.tenantmangementsystem
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tenantmangementsystem.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var lastTenant: Tenant? = null
+
+    companion object {
+        private const val TAG = "TENANT_LIFECYCLE"
+        private const val KEY_TENANT_NAME = "tenant_name"
+        private const val KEY_TENANT_PHONE = "tenant_phone"
+        private const val KEY_TENANT_RENT = "tenant_rent"
+    }
+
+    private var restoredTenantName: String? = null
+    private var restoredTenantPhone: String? = null
+    private var restoredTenantRent: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate called")
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Welcome Toast on Login
-        intent.getStringExtra("USER_EMAIL")?.let { email ->
-            Toast.makeText(this, "Logged in as $email", Toast.LENGTH_SHORT).show()
+        if (savedInstanceState != null) {
+            restoredTenantName = savedInstanceState.getString(KEY_TENANT_NAME)
+            restoredTenantPhone = savedInstanceState.getString(KEY_TENANT_PHONE)
+            restoredTenantRent = savedInstanceState.getString(KEY_TENANT_RENT)
+            Log.d(TAG, "Restored state: Name=$restoredTenantName, Phone=$restoredTenantPhone, Rent=$restoredTenantRent")
         }
+    }
 
-        binding.saveButton.setOnClickListener {
-            val name = binding.tenantNameEditText.text.toString().trim()
-            val phone = binding.phoneEditText.text.toString().trim()
-            val rent = binding.rentEditText.text.toString().trim()
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart called")
+    }
 
-            var isValid = true
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume called")
+    }
 
-            if (name.isEmpty()) {
-                binding.tenantNameEditText.error = "Required"
-                isValid = false
-            }
-            if (phone.isEmpty()) {
-                binding.phoneEditText.error = "Required"
-                isValid = false
-            }
-            if (rent.isEmpty()) {
-                binding.rentEditText.error = "Required"
-                isValid = false
-            }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause called")
+    }
 
-            if (!isValid) return@setOnClickListener
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop called")
+    }
 
-            val tenant = Tenant(name, phone, rent)
-            lastTenant = tenant
-            binding.tenant = tenant
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart called")
+    }
 
-            Toast.makeText(this, "Tenant saved successfully", Toast.LENGTH_SHORT).show()
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy called")
+    }
 
-            // Clear inputs after saving
-            binding.tenantNameEditText.text.clear()
-            binding.phoneEditText.text.clear()
-            binding.rentEditText.text.clear()
-        }
-
-        binding.callButton.setOnClickListener {
-            val tenant = lastTenant
-            if (tenant == null) {
-                Toast.makeText(this, "Save a tenant first", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${tenant.phone}"))
-                startActivity(intent)
-            }
-        }
-
-        binding.shareButton.setOnClickListener {
-            val tenant = lastTenant
-            if (tenant == null) {
-                Toast.makeText(this, "Save a tenant first", Toast.LENGTH_SHORT).show()
-            } else {
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, tenant.summary())
-                }
-                startActivity(Intent.createChooser(shareIntent, "Share tenant"))
-            }
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG, "onSaveInstanceState called")
+        outState.putString(KEY_TENANT_NAME, restoredTenantName)
+        outState.putString(KEY_TENANT_PHONE, restoredTenantPhone)
+        outState.putString(KEY_TENANT_RENT, restoredTenantRent)
     }
 }

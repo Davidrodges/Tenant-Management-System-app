@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tenant Mangement System</string>
+    <string name="no_tenants_recorded_yet">No tenants recorded yet.</string>
 </resources>
