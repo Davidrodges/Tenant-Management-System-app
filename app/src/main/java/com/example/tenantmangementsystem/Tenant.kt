@@ -5,9 +5,10 @@ import java.io.Serializable
 class Tenant(
     val name: String,
     val phone: String,
-    val rent: String
+    val rent: String = "0"
 ) : Serializable {
-    fun summary(): String {
-        return "Tenant: $name\nPhone: $phone\nRent: KSh $rent"
-    }
+    val summary: String
+        get() = "Tenant: $name\nPhone: $phone\nRent: KSh $rent"
+
+    fun summary(): String = summary
 }

@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/addTenantTitleTextView" />
 
     <EditText
-        android:id="@+id/tenantPhoneEditText"
+        android:id="@+id/phoneEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -43,28 +43,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tenantNameEditText" />
 
-    <EditText
-        android:id="@+id/tenantRentEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Monthly Rent"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tenantPhoneEditText" />
-
     <Button
-        android:id="@+id/saveTenantButton"
+        android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:minHeight="48dp"
-        android:text="SAVE TENANT"
+        android:text="SAVE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tenantRentEditText" />
+        app:layout_constraintTop_toBottomOf="@id/phoneEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

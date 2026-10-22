@@ -6,11 +6,11 @@
     android:padding="24dp">
 
     <TextView
-        android:id="@+id/dashboardTitleTextView"
+        android:id="@+id/tenantCountTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="TENANT MANAGEMENT DASHBOARD"
+        android:text="Tenants: 0"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,39 +18,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/totalRentSummaryTextView"
+        android:id="@+id/totalRentTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="16dp"
-        android:text="Total Rent: KSh 0"
+        android:layout_marginTop="16dp"
+        android:text="Total rent: KSh 0"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboardTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tenantCountTextView" />
 
     <Button
-        android:id="@+id/navigateAddTenantButton"
+        android:id="@+id/addTenantButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:minHeight="48dp"
-        android:text="ADD TENANT"
+        android:text="Add Tenant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/totalRentSummaryTextView" />
+        app:layout_constraintTop_toBottomOf="@id/totalRentTextView" />
 
     <Button
-        android:id="@+id/navigateViewTenantsButton"
+        android:id="@+id/viewTenantsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:minHeight="48dp"
-        android:text="VIEW TENANTS"
+        android:text="View Tenants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigateAddTenantButton" />
+        app:layout_constraintTop_toBottomOf="@id/addTenantButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

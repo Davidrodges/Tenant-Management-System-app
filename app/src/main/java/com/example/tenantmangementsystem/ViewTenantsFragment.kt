@@ -1,5 +1,7 @@
 package com.example.tenantmangementsystem
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,7 @@ class ViewTenantsFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentViewTenantsBinding.inflate(inflater, container, false)
         return binding.root
@@ -24,11 +24,27 @@ class ViewTenantsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tenant = arguments?.getSerializable("tenant") as? Tenant
-        if (tenant != null) {
-            binding.tenantsListTextView.text = tenant.summary()
+        val newTenant = arguments?.getSerializable("newTenant") as? Tenant
+
+        if (newTenant == null) {
+            binding.newTenantGroup.visibility = View.GONE
         } else {
-            binding.tenantsListTextView.text = getString(R.string.no_tenants_recorded_yet)
+            binding.newTenantGroup.visibility = View.VISIBLE
+            binding.tenant = newTenant
+        }
+
+        val tenants = TenantRepository.tenants
+        if (tenants.isEmpty()) {
+            binding.allTenantsTextView.text = "No tenants yet. Add one from the Dashboard."
+        } else {
+            binding.allTenantsTextView.text = tenants.joinToString("\n\n") { it.summary }
+        }
+
+        binding.callButton.setOnClickListener {
+            if (newTenant != null) {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${newTenant.phone}"))
+                startActivity(intent)
+            }
         }
     }
 
